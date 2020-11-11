@@ -1,0 +1,17 @@
+.paginationList {
+    display: flex;
+    color: green;
+    margin-top: 40px;
+
+    & li {
+        padding: 0 10px;
+    }
+
+    & li:hover {
+        color: black;
+    }
+
+    & .selected {
+        color: red;
+    }
+}

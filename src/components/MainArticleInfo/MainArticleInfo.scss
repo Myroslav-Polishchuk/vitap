@@ -1,0 +1,225 @@
+.articlePage {
+    display: flex;
+    flex-direction: row;
+}
+
+.ArticlePageMain {
+    width: 100%;
+    max-width: 930px;
+    margin-right: 25px;
+}
+
+.breadcrumbs {
+    margin-bottom: 30px;
+
+    & .link{
+        font-size: 12px;
+        color: #8a9599;
+        font-weight: 400;
+        font-family: "Open Sans";
+    }
+
+    & .text {
+        font-size: 12px;
+        color: #8a9599;
+        font-weight: 700;
+        font-family: "Open Sans";
+        text-transform: capitalize;
+    }
+}
+
+.sectionLink {
+    font-size: 12px;
+    color: #095930;
+    font-weight: 400;
+    font-family: "Open Sans";
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 30px;
+}
+
+.articleData {
+    & h3 {
+        font-size: 30px;
+        color: #0a0a0a;
+        font-weight: 700;
+        font-family: "Open Sans";
+        margin-bottom: 16px;
+    }
+}
+
+.metaArticle {
+    margin-bottom: 30px;
+    &__journal {
+        font-size: 12px;
+        color: #929ca0;
+        font-weight: 700;
+        font-family: "Open Sans";
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    &__code {
+        font-size: 12px;
+        color: #929ca0;
+        font-weight: 700;
+        font-family: "Open Sans";
+        margin-bottom: 25px;
+
+        & a {
+            color: #2a6f4c;
+        }
+    }
+
+    &__authors {
+        font-size: 16px;
+        color: #000000;
+        font-weight: 400;
+        font-family: "Open Sans";
+        margin-bottom: 10px;
+    }
+
+    &__workplace {
+        font-size: 14px;
+        color: #000000;
+        font-weight: 400;
+        font-family: "Open Sans";
+    }
+}
+
+.Resume {
+    padding: 20px 15px;
+    background-color: #ecf2ec;
+    margin-bottom: 30px;
+
+    &__title {
+        font-size: 20px;
+        color: #000000;
+        font-weight: 700;
+        font-family: "Open Sans";
+        margin-bottom: 30px;
+    }
+
+    &__maintext {
+        font-size: 16px;
+        color: #000000;
+        font-family: "Open Sans";
+        line-height: 24px;
+
+        & p {
+            margin-bottom: 30px;
+        }
+    }
+    
+    &__mainWords {
+        & h6 {
+            font-size: 16px;
+            line-height: 24px;
+            color: #000000;
+            font-weight: 700;
+            font-family: "Open Sans";
+        }
+
+        & p {
+            font-size: 16px;
+            line-height: 24px;
+            color: #000000;
+            font-family: "Open Sans";
+        }
+    }
+}
+
+.articleData {
+    &__maintext {
+        font-size: 16px;
+        line-height: 24px;
+        color: #000000;
+        font-weight: 400;
+        font-family: "Open Sans";
+        margin-bottom: 25px;
+
+        & p {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.References {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 15px;
+    background-color: #ececf2;
+    margin-bottom: 10px;
+    
+    &__wrapper {
+        margin-bottom: 50px;
+    }
+
+    &__text {
+        font-size: 14px;
+        line-height: 24px;
+        color: #000000;
+        font-weight: 700;
+        font-family: "Open Sans";
+    }
+
+    &__list {
+        & li {
+            margin-bottom: 10px
+        }
+
+        & li:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.goToStartPage {
+    display: block;
+    font-size: 16px;
+    line-height: 24px;
+    color: #095930;
+    font-weight: 400;
+    font-family: "Open Sans";
+    margin-bottom: 35px;
+}
+
+.Also {
+    &__title {
+        font-size: 24px;
+        color: #000000;
+        font-weight: 700;
+        font-family: "Open Sans";
+        margin-bottom: 20px;
+    }
+
+    & li {
+        margin-bottom: 25px;
+        position: relative;
+        padding-left: 30px;
+
+        & a {
+            font-size: 14px;
+            color: #000000;
+            font-weight: 700;
+            font-family: "Open Sans";
+        }
+    }
+
+    & li:before {
+        content: '';
+        display: block;
+        border-radius: 50%;
+        background-color: #095930;
+        width: 6px;
+        height: 6px;
+        position: absolute;
+        top: 6px;
+        left: 10px;
+    }
+
+    & li:last-child {
+        margin-bottom: 0;
+    }
+}

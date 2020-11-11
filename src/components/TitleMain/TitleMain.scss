@@ -1,0 +1,21 @@
+.TitleMain {
+    margin-top: 48px;
+    margin-bottom: 50px;
+    position: relative;
+    padding-left: 34px;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Open Sans";
+    text-transform: uppercase;
+
+    &:before {
+        content: '';
+        display: block;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        left: 0;
+        border-radius: 50%;
+        background-color: #095930;
+    }
+}

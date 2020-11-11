@@ -1,0 +1,51 @@
+table {
+    width: 100%;
+    margin: 0 auto;
+}
+
+caption {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+tr {
+
+}
+
+td {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.listTables {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin_h1 {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.form_h1 {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}

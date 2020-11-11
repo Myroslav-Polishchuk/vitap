@@ -1,0 +1,159 @@
+.recomendationTitle {
+	width: 100%;
+	font-size: 24px;
+	font-weight: bold;
+	font-family: "Open Sans";
+	text-transform: uppercase;
+	box-sizing: border-box;
+	padding-left: 30px;
+	position: relative;
+	margin-bottom: 50px;
+}
+
+.recomendationTitle::before {
+	content: '';
+	display: block;
+	border-radius: 50%;
+	background-color: #095930;
+	width: 14px;
+	height: 14px;
+	position: absolute;
+	top: 6px;
+	left: 0px;
+}
+
+.recomendationList {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	
+	& li {
+		position: relative;
+		max-width: 350px;
+		min-height: 289px;
+		width: 100%;
+		padding-left: 20px;
+		margin-bottom: 20px;
+	}
+
+	& li .recomendationItemTitle__dataLink {
+		display: block;
+		font-size: 16px;
+		font-family: "Open Sans";
+		padding-bottom: 24px;
+		margin-bottom: 24px;
+		border: 0 solid #095930;
+		border-bottom-width: 1px;
+	}
+
+	& li .recomendationItemTitle__dataLink:last-child {
+		border-width: 0px;
+	}
+}
+
+.recomendationListFull {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	& li {
+		width: 100%;
+		padding-left: 20px;
+	}
+
+	& li .recomendationItemTitle__dataLink {
+		display: block;
+		font-size: 16px;
+		font-family: "Open Sans";
+		padding-bottom: 24px;
+		margin-bottom: 24px;
+		border: 0 solid #095930;
+		border-bottom-width: 1px;
+	}
+
+	& li .recomendationItemTitle__dataLink:last-child {
+		border-width: 0px;
+	}
+}
+
+.recomendationItemTitle__text {
+	padding: 0;
+	margin-bottom: 0;
+}
+
+.recomendationTitle {
+	width: 100%;
+	font-size: 24px;
+	font-family: "Open Sans";
+	text-transform: uppercase;
+	box-sizing: border-box;
+	padding-left: 30px;
+	position: relative;
+	margin-bottom: 50px;
+	color: #095930;
+}
+
+.recomendationTitle::before {
+	content: '';
+	display: block;
+	border-radius: 50%;
+	background-color: #095930;
+	width: 14px;
+	height: 14px;
+	position: absolute;
+	top: 6px;
+	left: 0px;
+}
+
+.recomendationItemTitle {
+	width: 100%;
+	height: 16px;
+	font-size: 12px;
+	font-family: "Open Sans";
+	position: relative;
+	margin-bottom: 15px;
+}
+
+.recomendationItemTitle::before {
+	content: '';
+	display: block;
+	border-radius: 50%;
+	background-color: #f26e18;
+	width: 7px;
+	height: 7px;
+	position: absolute;
+	top: 3px;
+	left: -20px;
+}
+
+.recomendationViewmore {
+	font-family: "Open Sans";
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #095930;
+	position: absolute;
+	top: calc(100% - 20px);
+
+	&:hover {
+		color: #00a650;
+	}
+}
+
+.recomendationContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+@media (max-width: 1024px) {
+	.recomendationList li {
+		max-width: 295px;
+		box-sizing:	border-box;
+	}
+
+}
