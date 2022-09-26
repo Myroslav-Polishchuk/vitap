@@ -1,5 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import {createImgSrc} from './../utils/utils';
 
 function Articles({previewArticles, ulClass, linkText, languageID}) {
 	return <ul className={ulClass}>
@@ -8,44 +9,47 @@ function Articles({previewArticles, ulClass, linkText, languageID}) {
 }
 
 function ArticleItem({
-	category, 
+	category,
 	articles,
 	linkText,
 	languageID
 }) {
 	const titleText = category[languageID];
 	const titleUrl = `/articles/${category.eng}`;
-	const {imgSrc, imgAlt} = category;
+	const imgSrc = createImgSrc(category.imgLink, true);
+	const imgAlt = category.imgAlt || '#';
 
 	const ItemTitle = <>
 		<div className={'articleTitle'}>
 			<p className={'articleTitle__text'}>
-				<Link to={titleUrl}>
+				<HashLink to={`${titleUrl}/#`}>
 					{titleText}
-				</Link>
+				</HashLink>
 			</p>
-			<div className={'articleTitle__link'}>
-				<Link to={titleUrl} />
-			</div>
+			<HashLink to={`${titleUrl}/#`}>
+				<img src="/img/main/arrow-news.png" alt="#"/>
+			</HashLink>
 		</div>
 	</>
 
-	const listArticles = articles.map((art, index) => {
-		return <Link to={`/article/${art._id}`} key={art._id} className={index === 0 ? "firstLink" : ""}>
-			{art.main_title}
-		</Link>
-	})
+	const listArticles = <div className='links'>
+		{articles.map((art, index) => {
+			return <HashLink to={`/article/${art.id}/#`} key={art.id} className={index === 0 ? "firstLink" : ""}>
+				{art.main_title}
+			</HashLink>
+		})}
+	</div>
 
 	return <li>
 		<div className="articleItem">
 			{ItemTitle}
-			<div>
+			<div className="articleImg">
 				<img src={imgSrc} alt={imgAlt}/>
 			</div>
 			{listArticles}
 		</div>
-		<Link to={titleUrl} className="articlesSpecialion">{linkText}</Link>
-	</li> 
+		<HashLink to={`${titleUrl}/#`} className="articlesSpecialion">{linkText}</HashLink>
+	</li>
 }
 
 export default Articles

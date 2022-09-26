@@ -38,7 +38,7 @@ function VideoPreview(props) {
         />
     } else {
         return '';
-    }                   
+    }
 }
 
 export default VideoPreview;

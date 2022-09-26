@@ -7,11 +7,15 @@ import getI18Text from '../../../components/utils/i18n'
 
 import './VideoPage.scss'
 
-const TitleMainText = getI18Text("videoListTitle", "ukr");
-const anchorLinkText = getI18Text("videoPageReturn", "ukr");
-
 function VideoPage(props) {
     const [video, setVideo] = useState({});
+
+    const texts = useMemo(() => {
+        return {
+            TitleMainText: getI18Text("videoListTitle", props.languageID),
+            anchorLinkText: getI18Text("videoPageReturn", props.languageID),
+        }
+    }, [props.languageID])
 
     useEffect(() => {
         videoAxios.get(`/${props.match.params.videosID}`)
@@ -38,16 +42,17 @@ function VideoPage(props) {
         }
     ], [props.languageID, video]);
 
-    if (video._id) {
-        return <Component 
-            breadcrumbsData={BreadcrumbsData}
-            titleText={TitleMainText}
-            video={video}
-            anchorLinkText={anchorLinkText}
-        />
-    } else {
-        return '';
+    if (!video.id || !video.Category) {
+        return <></>
     }
+
+    return <Component
+        breadcrumbsData={BreadcrumbsData}
+        titleText={texts.TitleMainText}
+        video={video}
+        categoryName={video.Category[props.languageID]}
+        anchorLinkText={texts.anchorLinkText}
+    />
 }
 
 export default VideoPage;

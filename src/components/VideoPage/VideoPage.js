@@ -1,29 +1,32 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link';
 
 import Section from '../../components/Section/Section';
 
 function VideoPage(props) {
-    const {categoryID: categoryObj, previewText, title, embedURL} = props.video;
+    const {title, embedURL, mainText} = props.video;
 
-    return <Section breadcrumbsData={props.breadcrumbsData} titleText={props.titleText}>
+    return <Section breadcrumbsData={props.breadcrumbsData} titleText={props.titleText} languageID={props.languageID}>
         <main className="videoItem">
-            <iframe 
+            <iframe
+                title="youtube"
                 className="youtubeVideo"
                 type="text/html"
                 src={embedURL}
             />
             <h6>
-                {categoryObj.ukr}
+                {props.categoryName}
             </h6>
             <h5>
                 {title}
             </h5>
             <p>
-                {previewText}
+                <span>
+                    {mainText}
+                </span>
             </p>
         </main>
-        <Link to={'/videosList'} className="videoAnchor" >{props.anchorLinkText}</Link>
+        <HashLink to={'/videosList/#'} className="videoAnchor" >{props.anchorLinkText}</HashLink>
     </Section>
 }
 

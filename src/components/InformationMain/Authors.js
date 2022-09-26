@@ -1,19 +1,17 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';;
 
 function Authors({linkText, linkURL, imgSrc, imgAlt}) {
-    return <>
-        <Link to={'/authors'} className={"Authors"}>
-            <img 
-                className={"Authors__img"}
-                src={imgSrc}
-                alt={imgAlt}
-            />
-            <span className={"Authors__link"}>
-                {linkText}
-            </span>
-        </Link>
-    </>
+    return <HashLink to={'/authors/#'} className={"Authors"}>
+        <img
+            className={"Authors__img"}
+            src='./img/main/authors_public.png'
+            alt={imgAlt}
+        />
+        <span className={"Authors__link"}>
+            {linkText}
+        </span>
+    </HashLink>
 }
 
 Authors.defaultProps = {

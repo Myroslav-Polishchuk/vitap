@@ -1,94 +1,116 @@
-import React, {useState, useRef} from 'react'
+import React from 'react'
+import FormikForm from './FormikForm';
+import * as Yup from 'yup';
 
-function VideoForm(props) {
-    return <>
-        <h6>ID: {props._id}</h6>
-        <div>
-            Назад
-        </div>
-        <div>
-            Оновити
-        </div>
-        <div onClick={props.deleteData}>
-            Видалити
-        </div>
-        <form ref={props.formRef}>
-            <input 
-                ref={srcRef}
-                type="text"
-                value={src}
-                onChange={(event) => setSrc(event.target.value)}
-                />
-            <input 
-                ref={titleRef}
-                type="text"
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-                />
-            <input 
-                ref={previewImgRef}
-                type="text"
-                value={previewImg}
-                onChange={(event) => setPreviewImg(event.target.value)}
-                />
-            <input 
-                ref={previewImgAltRef}
-                type="text"
-                value={previewImgAlt}
-                onChange={(event) => setPreviewImgAlt(event.target.value)}
-                />
-            <input 
-                ref={categoryIDRef}
-                type="text"
-                value={categoryID}
-                onChange={(event) => setCategoryID(event.target.value)}
-                />
-            <input 
-                ref={previewTextRef}
-                type="text"
-                value={previewText}
-                onChange={(event) => setPreviewText(event.target.value)}
-                />
-        </form>
-        <button onClick={props.cleanForm}>
-            Очистити форму
-        </button>
-        <button>
-            Відправити (Створити \\ Оновити)
-        </button>
-    </>
+import {videoAxios as axios} from '../../../components/axios'
+
+import FieldFormikComp from '../formik/FieldFormikComp'
+
+const initialValues = {
+    id: '',
+    title: '',
+    src: '',
+    embedURL: '',
+    previewImgSrc: '',
+    previewText: '',
+    isOnline: false,
+    date: '',
+    mainText: '',
+    categoryID: ''
 }
 
-VideoForm.defaultProps = {
-    src: '',
-    title: '',
-    previewImg: '',
-    previewImgAlt: '',
-    categoryID: '',
-    previewText: ''
+const allData = [
+    {
+        name: "id",
+        label: "ID",
+        classNameFormControl: "hidden",
+        type: 'text',
+        options: {disabled: true}
+    },
+    {
+        name: "title",
+        label: "Назва",
+        type: 'text',
+        className: "small",
+        as: "textarea",
+        options: {}
+    },
+    {
+        name: "src",
+        label: "Youtube URL",
+        type: 'text',
+        options: {}
+    },
+    {
+        name: "embedURL",
+        label: "Embed Youtube URL",
+        type: 'text',
+        options: {}
+    },
+    {
+        name: "previewImgSrc",
+        label: "Preview Youtube Image URL: http://www.get-youtube-thumbnail.com/ -> hqdefault.jpg",
+        type: 'text',
+        options: {}
+    },
+    {
+        name: "previewText",
+        label: "Превю-текст для головної сторінки та розділу відео",
+        type: 'text',
+        as: "textarea",
+        options: {}
+    },
+    {
+        name: "isOnline",
+        label: "Онлайн",
+        type: 'checkbox',
+        options: {}
+    },
+    {
+        name: "date",
+        label: "Дата створення",
+        type: 'date',
+        options: {}
+    },
+    {
+        name: "mainText",
+        label: "Основний текст на сторінці самого відео",
+        type: 'text',
+        as: "textarea",
+        options: {}
+    },
+    {
+        name: "categoryID",
+        label: "Спеціалізація",
+        type: "text",
+        options: {}
+    }
+];
+
+const validationSchema = Yup.object({
+    // title: Yup.string().required(),
+    // src: Yup.string().required(),
+    // embedURL: Yup.string().required(),
+    // previewImgSrc: Yup.string().required(),
+    // previewText: Yup.string().required(),
+    // isOnline: Yup.boolean(),
+    // date: Yup.string(),
+    // mainText: Yup.string().required(),
+    // categoryID: Yup.number().required().required('Це поле обоввязкове')
+});
+
+function VideoForm(props) {
+    return <FormikForm
+        ID={props.ID}
+        initialValues={initialValues}
+        axios={axios}
+        validationSchema={validationSchema || {}}
+        tableName={props.tableName}
+        translate={props.translate}
+        userRule={props.userRule}
+    >
+        {allData.map(data => <FieldFormikComp {...data}/>)}
+    </FormikForm>
 }
 
 export default VideoForm;
-
-// const [src, setSrc] = useState(props.src);
-// const [title, setTitle] = useState(props.title);
-// const [previewImg, setPreviewImg] = useState(props.previewImg);
-// const [previewImgAlt, setPreviewImgAlt] = useState(props.previewImgAlt);
-// const [categoryID, setCategoryID] = useState(props.categoryID);
-// const [previewText, setPreviewText] = useState(props.previewText);
-
-// const srcRef = useRef(null);
-// const titleRef = useRef(null);
-// const previewImgRef = useRef(null);
-// const previewImgAltRef = useRef(null);
-// const categoryIDRef = useRef(null);
-// const previewTextRef = useRef(null);
-
-// function setData ({src, title, previewImg, previewImgAlt, categoryID, previewText}) {
-//     setSrc(src)
-//     setTitle(title)
-//     setPreviewImg(previewImg)
-//     setPreviewImgAlt(previewImgAlt)
-//     setCategoryID(categoryID)
-//     setPreviewText(previewText)
-// }

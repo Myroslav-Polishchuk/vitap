@@ -12,7 +12,7 @@ function InputArr({subType, placeholder, references, value}) {
                     return <select name={idName}>
                         <option value={''}>Default</option>
                         {references.map(ref => {
-                            return <option value={ref._id} selected={v === ref._id}>{ref[valueName]}</option>
+                            return <option value={ref.id} selected={v === ref.id}>{ref[valueName]}</option>
                         })}
                     </select>
                 })}

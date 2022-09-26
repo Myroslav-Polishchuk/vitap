@@ -1,25 +1,22 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link';
 
 import './OrganizationPreview.scss';
 import PreviewContainer from './../PreviewContainer/PreviewContainer';
 
 function OrganizationPreview(props) {
-
-    const OrganizationListItems = props.organizations.map(org => {
-        return <li key={org._id}>
-            <a href={org.url} target="_blank" rel="noopener noreferrer">
-                <img src={org.imgID.imgSrc} alt={org.imgID.imgAlt}/>
-            </a>
-        </li>
-    })
-
     return <PreviewContainer {...props.titleData}>
-        <ul className="organizationPreviewList globalWrapper listImg">
-            {OrganizationListItems}
+        <ul className={"organizationPreviewList globalWrapper listImg clearPadding"}>
+            {props.organizations.map((org) => (
+                <li key={org.id}>
+                    <a href={org.url} target="_blank" rel="noopener noreferrer">
+                        <img src={org.Foto.imgSrc} alt={org.Foto.imgAlt}/>
+                    </a>
+                </li>
+            ))}
         </ul>
-        <Link to="/organizations" className="videoViewMore" >{props.linkPreviewText}</Link>
-    </PreviewContainer> 
+        <HashLink to="/organizations/#" className="videoViewMore" >{props.linkPreviewText}</HashLink>
+    </PreviewContainer>
 }
 
 export default OrganizationPreview;

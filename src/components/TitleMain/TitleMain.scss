@@ -1,5 +1,5 @@
 .TitleMain {
-    margin-top: 48px;
+    margin-top: 50px;
     margin-bottom: 50px;
     position: relative;
     padding-left: 34px;
@@ -7,15 +7,22 @@
     font-weight: 700;
     font-family: "Open Sans";
     text-transform: uppercase;
+    line-height: 24pt;
 
     &:before {
         content: '';
         display: block;
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        left: 0;
         border-radius: 50%;
         background-color: #095930;
+        width: 14px;
+        height: 14px;
+        position: absolute;
+        top: 10px;
+        left: 0px;
+    }
+
+    @media (max-width: 700px) {
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }

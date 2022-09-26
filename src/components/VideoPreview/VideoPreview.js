@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
-import './VideoPreview.scss'
+import './VideoPreview.scss';
 import PreviewContainer from './../PreviewContainer/PreviewContainer';
 
 function VideoPreview({
@@ -10,27 +10,27 @@ function VideoPreview({
     viewMoreVideos,
     languageID
 }) {
-    const videoPreviewsItems = videos.map(({previewImgSrc, categoryID, previewText, _id}) => {
-        return <li key={_id}>
+    const videoPreviewsItems = videos.map(({previewImgSrc, Category, previewText, id}) => {
+        return <li key={id}>
             <div>
                 <img src={previewImgSrc} alt="#"/>
             </div>
             <div>
-                <Link to={`/videosList/${categoryID.eng}`}>
-                    <h6>{categoryID[languageID]}</h6>
-                </Link>
-                <Link to={`videos/${_id}`}>
+                <HashLink to={`/videosList/${Category.eng}/#`}>
+                    <h6>{Category[languageID]}</h6>
+                </HashLink>
+                <HashLink to={`videos/${id}/#`}>
                     <p>{previewText}</p>
-                </Link>
+                </HashLink>
             </div>
         </li>
     });
 
     return <PreviewContainer {...titleData}>
-        <ul className="videoPreview">
+        <ul className="videoPreview imgList clearPadding">
             {videoPreviewsItems}
         </ul>
-        <Link to="/videosList" className="videoViewMore" >{viewMoreVideos}</Link>
+        <HashLink to="/videosList/#" className="videoViewMore" >{viewMoreVideos}</HashLink>
     </PreviewContainer>
 }
 

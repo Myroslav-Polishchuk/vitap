@@ -1,4 +1,5 @@
 import React from 'react';
+import { HashLink } from 'react-router-hash-link';;
 
 export default ({magazinesData, titleText}) => {
 	const MagazinesTitle = <>
@@ -6,6 +7,9 @@ export default ({magazinesData, titleText}) => {
 			<p className={'magazines__text'}>
 				{titleText}
 			</p>
+			<HashLink to='/about/projects/#'>
+				<img src="/img/main/arrow-journals.png" alt="#"/>
+			</HashLink>
 		</div>
 	</>
 
@@ -19,7 +23,7 @@ export default ({magazinesData, titleText}) => {
 				</li>
 			})}
 		</ul>
-	</> 	
+	</>
 
 	return <div className="magazinesContainer">
 		{MagazinesTitle}

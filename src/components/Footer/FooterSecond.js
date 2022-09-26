@@ -1,43 +1,24 @@
 import React from 'react'
+import getI18Text from '../../components/utils/i18n';
 
-import {FooterSecondData} from '../../data/mock'
+import { HashLink } from 'react-router-hash-link';
 
-function FooterSecond() {
-
-	const footerSecondData = FooterSecondData.map(({titleText, listDataArr}) => {
-		const activitiesTitle = <>
-			<div className={'footerTitle'}>
-				<p className={'footerTitle__text'}>
-					{titleText}
-				</p>
-				<div className={'footerTitle__link'}>
-					<a href={"#"} />
-				</div>
-			</div>
-		</>
-
-		const textsList = <>
-			<ul className={'footerList'}>
-				{listDataArr.map(({text, _id}) => {
-					return <li key={_id}>
-						<p>
-							{text}
-						</p>
-					</li>
-				})}
-			</ul>
-		</>
-		
-		return <React.Fragment key={titleText}>
-			{activitiesTitle}
-			{textsList}
-		</React.Fragment>
-	})
-
+function FooterSecond(props) {
 	return <div>
-		{footerSecondData}
+		<ul className={'footerList'}>
+			<li><p><HashLink to="/about-site">{getI18Text("aboutSite", props.languageID)} http://vitapol.info</HashLink></p></li>
+			<li><p><HashLink to="/privacy-policy/#">{getI18Text("agreement", props.languageID)} http://vitapol.info</HashLink></p></li>
+		</ul>
+
+		<div className={'footerTitle'}>
+			{getI18Text("footerTitleText", props.languageID)}
+		</div>
+		<ul className={'footerList'}>
+			<li><p>{getI18Text("footerAdress", props.languageID)}</p></li>
+			<li><p>{getI18Text("footerTelBuilding", props.languageID)}</p></li>
+			<li><p>{getI18Text("footerEmailBuilding", props.languageID)}</p></li>
+		</ul>
 	</div>
-	
 }
 
 export default FooterSecond;

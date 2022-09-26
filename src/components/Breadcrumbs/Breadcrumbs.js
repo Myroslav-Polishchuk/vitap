@@ -1,10 +1,18 @@
 import React from 'react'
 
-import {Link} from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link';
 
-function Breadcrumbs({dataArr, classStyle}) {
+const firstLetterUppercaseText = (text) => {
+    if (!text) {
+        return;
+    }
+    const letter = text.trim().charAt(0).toUpperCase();
+    return letter + text.substring(1);
+}
+
+function Breadcrumbs({dataArr, classStyle, languageID}) {
     const data = [{
-        text: "Домашня сторінка",
+        text: languageID === 'ukr' ? "Домашня сторінка" : "Домашняя страница",
         url: "/"
     }, ...dataArr];
 
@@ -12,12 +20,12 @@ function Breadcrumbs({dataArr, classStyle}) {
         {data.map(({text, url}) => {
             if (!url) {
                 return <span className="text" key={text + url}>
-                    {text}
-                </span> 
+                    {firstLetterUppercaseText(text)}
+                </span>
             } else {
-                return <Link className="link" to={url} key={text + url}>
-                {`${text} > `}
-            </Link>
+                return <HashLink className="link" to={`${url}#`} key={text + url}>
+                {`${firstLetterUppercaseText(text)} > `}
+            </HashLink>
             }
         })}
     </p>

@@ -1,39 +1,31 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { HashLink } from 'react-router-hash-link';
 
 function CurrentPublication ({
-	_id,
-	mainText,
-	imgs,
+	id,
+	previewText,
 	title,
-	mainNewsTitle
+	mainNewsTitle,
+	mainImg
 }) {
 	return (
 		<div className="currentPublicationWrapper">
-			<Link to={`/news/${_id}`} className="currentPublicationImg">
-				<img src={imgs[0].imgSrc} alt={imgs[0].imgAlt}/>
-				<a href={"#"}>
+			<HashLink to={`/news/${id}/#`} className="currentPublicationImg">
+				<img src={mainImg.imgSrc} alt={mainImg.imgAlt}/>
+				<span href={"#"}>
 					{mainNewsTitle}
-				</a>
-			</Link>
+				</span>
+			</HashLink>
 			<div className="currentPublication__preview">
 				<h4>
-					<Link to="/news">
+					<HashLink to={`/news/${id}/#`}>
 						{title}
-					</Link>
+					</HashLink>
 				</h4>
-				<p>{mainText}</p>
+				<p>{previewText}</p>
 			</div>
 		</div>
 	)
-}
-
-CurrentPublication.propTypes = {
-	previewTitle: PropTypes.string.isRequired,
-	previewText: PropTypes.string.isRequired,
-	imgLinkText: PropTypes.string.isRequired,
-	imgLinkUrl: PropTypes.string.isRequired
 }
 
 export default CurrentPublication;

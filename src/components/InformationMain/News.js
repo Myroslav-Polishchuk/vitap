@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';;
 
 function News ({newsPreview, titleText}) {
 	const NewsList = <ul className={"newsList"}>
 		{newsPreview.map((dataLink) => {
-			return <li key={dataLink._id}>
-				<Link to={`/news/${dataLink._id}`}>
+			return <li key={dataLink.id}>
+				<HashLink to={`/news/${dataLink.id}/#`}>
 					{dataLink.title}
-				</Link>
+				</HashLink>
 			</li>
 		})}
 	</ul>
@@ -16,16 +16,16 @@ function News ({newsPreview, titleText}) {
 	const NewsTitle = <>
 		<div className={'newsTitle'}>
 			<p className={'newsTitle__text'}>
-				<Link to={'/news'} >
+				<HashLink to={'/news/#'} >
 					{titleText}
-				</Link>
+				</HashLink>
 			</p>
-			<div className={'newsTitle__link'}>
-				<Link to={'/news'} />
-			</div>
+			<HashLink to='/news/#'>
+				<img src="/img/main/arrow-news.png" alt="arrow-news"/>
+			</HashLink>
 		</div>
 	</>
-	
+
 	return <div className="newsContainer">
 		{NewsTitle}
 		{NewsList}

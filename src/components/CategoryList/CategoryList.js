@@ -1,18 +1,18 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link';
 
 import './CategoryList.scss'
 
-function CategoryList({itemDataArr, languageID}) {
-    const itemsArr = itemDataArr.map(item => {
-        return <li className={'active'} key={item._id}>
-            <Link to={`/recomendations/${item.eng}`}>
+function CategoryList({categories, languageID, categoryName, additionalStyleClass}) {
+    const itemsArr = categories.map(item => {
+        return <li className={'active'} key={item.id}>
+            <HashLink to={`/${categoryName}/${item.eng}/#`}>
                 {item[languageID]}
-            </Link>
+            </HashLink>
         </li>
-    })
+    });
 
-    return <ul className="JournalList">
+    return <ul className={`JournalList ${additionalStyleClass}`}>
         {itemsArr}
     </ul>
 }

@@ -15,9 +15,14 @@ function Form({
         <form action="#" ref={formRef} onSubmit={(e) => {e.preventDefault()}}>
             {Object.keys(currentFormData).map(fieldKey => {
                 return <Input
+                    key={fieldKey}
                     {...currentFormData[fieldKey]}
                     idName={fieldKey}
-                    value={currentData ? currentData[fieldKey] : ''}
+                    value={currentData
+                        ? currentData[fieldKey]
+                            ? currentData[fieldKey]
+                            : ''
+                        : ''}
                 />
             })}
             {sendPost && <button onClick={sendPost}>Створити</button>}

@@ -1,15 +1,21 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link';
+import utils from '../utils/utils';
 
 import './Authors.scss'
 
 function AuthorsList(props) {
     return <ul className="AuthorsList">
         {props.authors.map(author => {
-            return <li key={author._id}>
-                <Link to={`/authors/${author._id}`}>
-                    {author.name}
-                </Link>
+            const name = utils.createAuthorInitials(author);
+            if (!name) {
+                return <></>
+            }
+
+            return <li key={author.id}>
+                <HashLink to={`/authors/${author.id}/#`}>
+                    {name}
+                </HashLink>
             </li>
         })}
     </ul>

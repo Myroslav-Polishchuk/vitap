@@ -15,17 +15,17 @@ function ActivitiesPreview(props) {
     }, [props.languageID]);
 
     useEffect(() => {
-        activitiesAxios.get('/preview')
-        .then(response => {
+        activitiesAxios.get(
+            '/preview'
+        ).then(response => {
             if (response.status === 200) {
                 setActivities(response.data);
             } else {
                 throw new Error('Recomendation Error');
             }
-        })
-        .catch(err => {
+        }).catch(err => {
             console.log(err);
-        })
+        });
     }, []);
 
     if (activities.length) {

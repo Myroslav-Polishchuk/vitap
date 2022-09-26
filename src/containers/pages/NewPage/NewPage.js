@@ -35,7 +35,7 @@ function NewPage(props) {
                         text: newData.title
                     }
                 ],
-                titleText: newData.title
+                languageID: props.languageID
             }
         }
     }, [props.languageID, newData])

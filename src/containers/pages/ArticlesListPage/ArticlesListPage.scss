@@ -13,12 +13,14 @@
 
 .articleAuthors {
     display: flex;
-    flex-direction: row;
-    
+    flex-direction: column;
+    vertical-align: middle;
+    margin-top: 3px;
+
     &List {
         display: flex;
         flex-direction: row;
-        border-right: 1px solid grey;
+        flex-wrap: wrap;
         margin-right: 8px;
 
         & li {
@@ -27,20 +29,28 @@
         }
 
         & li a {
+            height: 100%;
+            vertical-align: middle;
             color: #095930;
             font-size: 12px;
         }
     }
 
     &Journal {
+        border-left: 1px solid #8a9599;
+        padding-left: 8px;
+
         & span {
-            color: #095930;
+            display: block;
+            width: 100%;
+            height: 100%;
+            vertical-align: super;
             font-size: 12px;
+            color: #8a9599;
         }
 
         & a {
-            color: #cbd0d2;
-            font-size: 12px;
+            color: #8a9599;
         }
     }
 }

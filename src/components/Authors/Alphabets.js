@@ -29,13 +29,13 @@ const englishABC = [
     'Z'
 ];
 
-const ukrainianABC = [
-    'А', 
+const cyrylicABC = [
+    'А',
     'Б',
     'В',
     'Г',
     'Ґ',
-    'Д', 
+    'Д',
     'Е',
     'Є',
     'Ж',
@@ -62,11 +62,16 @@ const ukrainianABC = [
     'Щ',
     'Ь',
     'Ю',
-    'Я'
+    'Я',
+    'Ё',
+    'Ъ',
+    'Ы',
+    'Ь',
+    'Э'
 ]
 
 function Alphabets(props) {
-    const ukrainianAlphabet = getAlphabet(ukrainianABC, props.setLetter);
+    const ukrainianAlphabet = getAlphabet(cyrylicABC, props.setLetter);
     const englishAlphabet = getAlphabet(englishABC, props.setLetter);
 
     return <div className="AlpabetBlock">

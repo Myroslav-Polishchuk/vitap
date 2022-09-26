@@ -1,6 +1,7 @@
 const axios = require('axios');
 
-const host = 'http://localhost:8080'
+// const host = 'http://localhost:8080';
+const host = 'http://testback.fun';
 
 const mainAxios = axios.create({
     baseURL: `${host}`
@@ -53,7 +54,27 @@ const journalAxios = axios.create({
 const imgAxios = axios.create({
     baseURL: `${host}/images`
 })
- 
+
+const fileAxios = axios.create({
+    baseURL: `${host}/files`
+});
+
+const advertisingAxios = axios.create({
+    baseURL: `${host}/advertising`
+});
+
+const orderAxios = axios.create({
+    baseURL: `${host}/order`
+});
+
+const articleReferenceAxios = axios.create({
+    baseURL: `${host}/articlereference`
+});
+
+const advertisingPlaceAxios = axios.create({
+    baseURL: `${host}/advertisingplace`
+});
+
 export {
     imgAxios,
     journalAxios,
@@ -67,7 +88,12 @@ export {
     articlesAxios,
     adminAxios,
     activitiesAxios,
-    organizationsAxios
+    organizationsAxios,
+    fileAxios,
+    advertisingAxios,
+    orderAxios,
+    articleReferenceAxios,
+    advertisingPlaceAxios
 };
 
 export default {
@@ -82,5 +108,11 @@ export default {
     articlesAxios,
     adminAxios,
     activitiesAxios,
-    organizationsAxios
+    organizationsAxios,
+    fileAxios,
+    imgAxios,
+    advertisingAxios,
+    orderAxios,
+    articleReferenceAxios,
+    advertisingPlaceAxios
 };

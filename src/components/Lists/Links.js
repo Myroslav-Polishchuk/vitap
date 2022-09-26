@@ -1,14 +1,14 @@
 import React from 'react'
 
-import {Link} from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link';
 
-function ListLinks({dataLinks, ulClass, listLinksRef, languageID}) {
+function ListLinks({dataLinks, ulClass, listLinksRef, languageID, clicked}) {
 	const links = dataLinks.map((dataLink) => {
-		return <li key={dataLink.eng}>
-			<Link to={`/articles/${dataLink.eng}`}>
+		return <li key={dataLink.eng} onClick={clicked}>
+			<HashLink to={`/articles/${dataLink.eng}/#`}>
 				{dataLink[languageID]}
-			</Link>
-		</li> 	
+			</HashLink>
+		</li>
 	});
 
 	return <ul className={ulClass} ref={listLinksRef}>

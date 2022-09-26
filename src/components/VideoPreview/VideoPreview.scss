@@ -1,25 +1,3 @@
-.videoPreview {
-    & li {
-
-    }
-
-    & div {
-
-    }
-
-    & div img {
-
-    }
-
-    & h6 {
-
-    }
-
-    & p {
-        
-    }
-}
-
 .videoPreviewTitle {
 	width: 100%;
 	font-size: 24px;
@@ -30,7 +8,7 @@
 	padding-left: 30px;
 	position: relative;
     margin-bottom: 50px;
-    
+
     &::before {
         content: '';
         display: block;
@@ -45,10 +23,6 @@
 }
 
 .videoPreview {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	flex-wrap: wrap;
 	width: 100%;
 
 	& div {
@@ -57,41 +31,55 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		position: relative;
+		overflow: hidden;
 	}
 
 	& div:last-child {
 		box-sizing: border-box;
+		padding-top: 6px;
 		padding-left: 10px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
 	}
 
 	& div img {
-		width: 100%;
+		width: calc(100% + 66px);
 		height: 100%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 	& li {
 		width: 100%;
-		max-width: 295px;
-		margin-bottom: 25px;
+		max-width: 400px;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 	}
 
 	& div h6 {
-		color: #095930;
+		color: #c7262c;
 		font-family: "Open Sans";
-		font-size: 14px;
-		font-weight: 700;
-		text-transform: capitalize;
+		font-size: 12px;
+		text-transform: uppercase;
 		margin-bottom: 10px;
 	}
 
 	& div p {
-		font-size: 20px;
+		font-size: 14px;
+		line-height: 14pt;
 		font-family: "Open Sans";
 		font-weight: bold;
 		color: black;
+		text-overflow: ellipsis;
+	}
+
+	& div p:hover {
+		color: #505050;
 	}
 }
 
@@ -101,9 +89,10 @@
 	font-weight: bold;
 	text-transform: uppercase;
 	color: #095930;
+	margin-top: 36px;
 
 	&:hover {
-		color: #00a650;
+		color: #00a748;
 	}
 }
 

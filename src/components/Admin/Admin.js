@@ -26,9 +26,11 @@ function Admin({
                 setRegime('getAll');
             }
 
-            return <li className={classStyle}
+            return <li
+                className={classStyle}
                 onClick={click}
-                key={table.name}>
+                key={table.name}
+            >
                 {table.name}
             </li>
         })}
@@ -54,7 +56,7 @@ function Admin({
                 sendPost={() => {setSendDataConfigMethod('post')}}
             />
             break;
-        case 'put': 
+        case 'put':
             mainPart = <Form
                 tableName={activeTable.name}
                 currentFormData={currentFormData}
@@ -81,7 +83,7 @@ const ignoreColumns = [
 ];
 
 const disabledFields = [
-    '_id',
+    'id',
     '__v'
 ];
 
@@ -97,7 +99,7 @@ function getColumnNames(tableData) {
         }).filter(name => {
             return typeof data[name] !== 'object'
         }) : [];
-        
+
         return columnArr;
     } else {
         return [];

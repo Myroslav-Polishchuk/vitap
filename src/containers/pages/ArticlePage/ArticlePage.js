@@ -10,8 +10,14 @@ function ArticlePage(props) {
     const [alsoArticles, setAlsoArticles] = useState([]);
 
     useEffect(() => {
-        articlesAxios.get(`/article/${props.match.params.articleID}`)
-        .then(response => {
+        let aritlcesGET = {};
+        if (props.match.params.previewArticleID) {
+            aritlcesGET = articlesAxios.get(`/article/preview/${props.match.params.previewArticleID}`);
+        } else if (props.match.params.articleID) {
+            aritlcesGET = articlesAxios.get(`/article/${props.match.params.articleID}`);
+        }
+
+        aritlcesGET.then(response => {
             if (response.status === 200) {
                 setArticle(response.data);
             } else {
@@ -21,13 +27,13 @@ function ArticlePage(props) {
         .catch(err => {
             console.log(err);
         })
-    }, [props.match.params.articleID])
+    }, [props.match.params.articleID, props.match.params.previewArticleID]);
 
     useEffect(() => {
-        if (article._id) {
+        if (article.id && article.Categories && article.Categories.length) {
             articlesAxios.post('/article/also', {
-                ignoreArticleID: article._id,
-                categoryID: article.categoryID._id
+                ignoreArticleID: article.id,
+                categoryID: article.Categories[0].id
             })
             .then(response => {
                 if (response.status === 200) {
@@ -43,15 +49,15 @@ function ArticlePage(props) {
     }, [article])
 
     const BreadcrumbsData = useMemo(() => {
-        if (article._id && props.languageID) {
+        if (article.id && props.languageID) {
             return [
                 {
                     text: getI18Text('articlesTitle', props.languageID),
                     url: "#"
                 },
                 {
-                    text: article.categoryID[props.languageID],
-                    url: `/articles/${article.categoryID.eng}`
+                    text: article.Categories[0][props.languageID],
+                    url: `/articles/${article.Categories[0].eng}`
                 },
                 {
                     text: article.main_title,
@@ -64,25 +70,26 @@ function ArticlePage(props) {
     }, [article, props.languageID])
 
     const [goToStartPageText, categoryTitle, categoryEng] = useMemo(() => {
-        if (props.languageID && article._id) {
+        if (props.languageID && article.id) {
             return [
                 getI18Text('goToStartPage', props.languageID),
-                article.categoryID[props.languageID],
-                article.categoryID.eng
+                article.Categories[0][props.languageID],
+                article.Categories[0].eng
             ]
         } else {
             return [];
         }
     }, [props.languageID, article]);
 
-    if (article._id) {
-        return <Component 
-            breadcrumbsData={BreadcrumbsData} 
+    if (article.id) {
+        return <Component
+            breadcrumbsData={BreadcrumbsData}
             categoryTitle={categoryTitle}
             categoryEng={categoryEng}
             article={article}
             goToStartPageText={goToStartPageText}
             alsoArticles={alsoArticles}
+            languageID={props.languageID}
         />
     } else {
         return '';

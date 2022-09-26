@@ -1,12 +1,9 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import ReactPaginate from 'react-paginate';
 
 import getI18Text from '../utils/i18n';
 
 import './Pagination.scss'
-
-const prevLabel = getI18Text("paginationPrevLabel", "ukr");
-const nextLabel = getI18Text("paginationNextLabel", "ukr");
 
 const defaultPaginationClass = 'paginationList';
 
@@ -16,15 +13,25 @@ function Pagination({
     paginationClassName,
     onPaginationChange,
     initialPage,
-    forcePage
+    forcePage,
+    languageID,
+    paginationPrevLabel,
+    paginationNextLabel
 }) {
+    const labels = useMemo(() => {
+        return {
+            prevLabel: getI18Text(paginationPrevLabel || "paginationPrevLabel", languageID),
+            nextLabel: getI18Text(paginationNextLabel || "paginationNextLabel", languageID)
+        }
+    }, [languageID, paginationPrevLabel, paginationNextLabel]);
+
     if (dataLength && (dataLength / limitPerPage > 1)) {
         return <ReactPaginate
             pageCount={dataLength / limitPerPage}
             pageRangeDisplayed={5}
             marginPagesDisplayed={5}
-            previousLabel={prevLabel}
-            nextLabel={nextLabel}
+            previousLabel={labels.prevLabel}
+            nextLabel={labels.nextLabel}
             initialPage={initialPage}
             forcePage={forcePage}
             containerClassName={paginationClassName || defaultPaginationClass}

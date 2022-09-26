@@ -15,9 +15,9 @@ function ArticleBlock(props) {
         ]
     }, [props.languageID]);
 
-	useEffect(() => {
-		articlesAxios.get('/preview')
-		.then(response => {
+    useEffect(() => {
+        articlesAxios.get('/preview')
+        .then(response => {
             if (response.status === 200) {
                 setPreviewArticles(response.data);
             } else {
@@ -27,9 +27,14 @@ function ArticleBlock(props) {
         .catch(err => {
             console.log(err);
         })
-	}, [])
+    }, []);
 
-	return <Component languageID={props.languageID} previewArticles={previewArticles} titleData={titleData} articlesSpecialion={articlesSpecialion}/>
+    return <Component
+        languageID={props.languageID}
+        previewArticles={previewArticles}
+        titleData={titleData}
+        articlesSpecialion={articlesSpecialion}
+    />
 }
 
 export default ArticleBlock;

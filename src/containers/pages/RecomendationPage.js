@@ -1,31 +1,37 @@
 import React, {useEffect, useState, useMemo} from 'react'
-import {Link} from 'react-router-dom'
 
 import Section from './../../components/Section/Section';
 import Recomendations from '../../components/Lists/Recomendations';
-import Pagination from '../../components/Pagination/Pagination';
+import CategoryList from './../CategoryList';
 
-import {recomendationsAxios} from '../../components/axios';
+import {recomendationsAxios, advertisingPlaceAxios} from '../../components/axios';
 import getI18Text from './../../components/utils/i18n';
 
 import '../../components/CategoryList/CategoryList.scss';
 
-const limitPerPage = 10;
+const all = {
+    id: 'all',
+    eng: 'all',
+    ukr: 'Всі',
+    rus: 'Все'
+}
 
 function RecomendationPage(props) {
     const [recomendations, setRecomendations] = useState([]);
-    const [activePagination, setActivePagination] = useState(1);
-    const [recomendationLength, setRecomendationLength] = useState(0);
+    const [advertisingPlaces, setAdvertisingPlaces] = useState({});
+    const [advertisingID, setAdvertisingID] = useState(props.advertisingID || 0);
+
+    const recomendationCategories = useMemo(() => [...props.categories, all], [props.categories]);
 
     const activeCategory = useMemo(() => {
-        if (props.categories.length && props.match.params.categoryEng) {
-            return props.categories.find(cat => {
-                return cat.eng === props.match.params.categoryEng;
+        if (recomendationCategories.length) {
+            return recomendationCategories.find(cat => {
+                return cat.eng === props.match.params.categoryEng || (!props.match.params.categoryEng && cat.eng === 'all');
             })
         } else {
-            return {};
+            return '';
         }
-    }, [props.match.params.categoryEng, props.categories]);
+    }, [props.match.params.categoryEng, recomendationCategories]);
 
     const {TitleMainText, BreadcrumbsData} = useMemo(() => {
         const title = getI18Text('recomendationBlockTitle', props.languageID);
@@ -37,7 +43,7 @@ function RecomendationPage(props) {
                     url: "#"
                 },
                 {
-                    text: activeCategory[props.languageID],
+                    text: activeCategory ? activeCategory[props.languageID] : '',
                     url: ""
                 },
             ]
@@ -45,26 +51,29 @@ function RecomendationPage(props) {
     }, [props.languageID, activeCategory]);
 
     useEffect(() => {
-        if (activeCategory._id) {
-            recomendationsAxios.get(`/length/${activeCategory._id}`)
-            .then(response => {
+        if (advertisingPlaceAxios) {
+            advertisingPlaceAxios.get('/recomendationlist').then(response => {
                 if (response.status === 200) {
-                    setRecomendationLength(response.data.recomendationLength);
+                    setAdvertisingPlaces(response.data);
                 } else {
-                    throw new Error('Recomendation Error');
+                    throw new Error('Authors Error')
                 }
-            })
-            .catch(err => {
+            }).catch(err => {
                 console.log(err);
             })
         }
     }, [activeCategory]);
 
     useEffect(() => {
-        if (activeCategory._id && recomendationLength) {
-            recomendationsAxios.post(`/${activeCategory._id}`, {
-                page: activePagination
-            })
+        if (activeCategory && advertisingPlaces) {
+            setAdvertisingID(advertisingPlaces[activeCategory.eng]);
+        }
+    }, [activeCategory, advertisingPlaces]);
+
+    useEffect(() => {
+        const url = activeCategory && activeCategory.id ? activeCategory.id : '';
+        if (url) {
+            recomendationsAxios.post(`/${url}`)
             .then(response => {
                 if (response.status === 200) {
                     setRecomendations([{
@@ -78,38 +87,13 @@ function RecomendationPage(props) {
             .catch(err => {
                 console.log(err);
             })
-        } else if (activeCategory._id) {
-            setRecomendations([{
-                category: activeCategory,
-                recomendations: []
-            }]);
         }
-    }, [activeCategory, recomendationLength, activePagination]);
+    }, [activeCategory]);
 
-    return <Section breadcrumbsData={BreadcrumbsData} titleText={TitleMainText}>
-        <CategoryList itemDataArr={props.categories} languageID={props.languageID}/>
-        <Recomendations recomendations={recomendations} ulClass={"recomendationListFull"} languageID={props.languageID}/>
-        <Pagination
-            dataLength={recomendationLength}
-            limitPerPage={limitPerPage}
-            paginationClassName={"videoListPagination"}
-            onPaginationChange={setActivePagination}
-         />
+    return <Section breadcrumbsData={BreadcrumbsData} titleText={TitleMainText} advertisingIDProp={advertisingID} languageID={props.languageID}>
+        <CategoryList categoryName='recomendations' additionalCategory={all} languageID={props.languageID} additionalStyleClass="recomendationListCat"/>
+        {!!recomendations.length && <Recomendations recomendations={recomendations} ulClass={"recomendationListFull"} languageID={props.languageID} />}
     </Section>
 }
 
 export default RecomendationPage;
-
-function CategoryList({itemDataArr, languageID}) {
-    const itemsArr = itemDataArr.map(item => {
-        return <li className={'active'} key={item._id}>
-            <Link to={`/recomendations/${item.eng}`}>
-                {item[languageID]}
-            </Link>
-        </li>
-    })
-
-    return <ul className="JournalList">
-        {itemsArr}
-    </ul>
-}

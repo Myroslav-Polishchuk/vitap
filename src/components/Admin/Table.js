@@ -14,12 +14,12 @@ function Table({
         columnsName = columnArr.map(name => {
             return <td>{name}</td>
         });
-    
+
         dataTR = tableData.map(data => {
             return <tr>
                 {columnArr.map(col => {
                     const click = () => {
-                        if (col === '_id') {
+                        if (col === 'id') {
                             setCurrentDataID(data[col]);
                         }
                         setRegime('put');

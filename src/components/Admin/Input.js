@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 
 import axioses from '../axios'
 
@@ -19,14 +19,18 @@ const axioeseRef = {
     },
     img: {
         axios: axioses.imgAxios,
-        valueName: 'imgAlt'
+        valueName: 'name'
     },
     video: axioses.videoAxios,
     news: axioses.newsAxios,
     articles: axioses.articlesAxios,
     admin: axioses.adminAxios,
     activities: axioses.activitiesAxios,
-    organizations: axioses.organizationsAxio
+    organizations: axioses.organizationsAxio,
+    file: {
+        axios: axioses.fileAxios,
+        valueName: 'name'
+    }
 };
 
 function Input({
@@ -40,10 +44,32 @@ function Input({
     const [references, setReferences] = useState([]);
     const [valueName, setValueName] = useState('');
 
-    useEffect(() => {setValue(value)}, [value]);
+    const addSelect = useCallback(() => {
+        const valueStateArr = typeof valueState === 'object' ? [...valueState] : [valueState];
+        setValue([...valueStateArr, '']);
+    }, [valueState]);
+
+    const changeHandler = (e) => {
+        if (typeof valueState === 'string') {
+            setValue(e.target.value)
+        } else if (typeof valueState === 'object') {
+            const newArrayValue = valueState.map((value, index) => {
+                if (index === +e.target.attributes.index.value) {
+                    return e.target.value;
+                }
+                return value;
+            });
+
+            setValue(newArrayValue);
+        }
+    };
 
     useEffect(() => {
-        if (typeof fieldType === 'object' && fieldType.subType === 'reference') {
+        setValue(value);
+    }, [value]);
+
+    useEffect(() => {
+        if (typeof fieldType === 'object' && (fieldType.subType === 'reference' || fieldType.subType === 'referenceArr')) {
             const axiosRef = axioeseRef[fieldType.table];
 
             if (axiosRef) {
@@ -74,7 +100,7 @@ function Input({
                         placeholder={placeholder}
                         disabled={isIgnore}
                         value={valueState}
-                        onChange={(e) => {setValue(e.target.value)}}
+                        onChange={changeHandler}
                     />
                 </label>
             case 'checkbox':
@@ -84,19 +110,28 @@ function Input({
                         type="checkbox"
                         name={idName}
                         disabled={isIgnore}
-                        value={valueState}
-                        onChange={(e) => {setValue(e.target.value)}}
+                        checked={valueState}
+                        onChange={(e) => {setValue(e.target.checked)}}
                     />
                 </label>
             case 'textarea':
                 return <label>
                     {placeholder}
                     <textarea
+                        wrap='hard'
                         type="checkbox"
                         name={idName}
                         disabled={isIgnore}
                         value={valueState}
-                        onChange={(e) => {setValue(e.target.value)}}
+                        onChange={changeHandler}
+                    />
+                </label>
+            case 'file': 
+                return <label>
+                    {placeholder}
+                    <input
+                        type="file"
+                        name={idName}
                     />
                 </label>
         }
@@ -108,35 +143,39 @@ function Input({
                     <select name={idName}>
                         <option value={''}>Default</option>
                         {references.map(ref => {
-                            return <option value={ref._id} selected={valueState === ref._id}>{ref[valueName]}</option>
+                            return <option value={ref.id} selected={valueState === ref.id}>{ref[valueName]}</option>
                         })}
                     </select>
                 </label>
             case 'referenceArr':
+                const valueStateArr = typeof valueState === 'object' ? [...valueState] : [valueState]; 
                 return <label>
                     {placeholder}
-                    {valueState && valueState.map(v => {
+                    {valueState && valueStateArr.map(v => {
                         return <select name={idName}>
                             <option value={''}>Default</option>
                             {references.map(ref => {
-                                return <option value={ref._id} selected={v === ref._id}>{ref[valueName]}</option>
+                                return <option value={ref.id} selected={v === ref.id}>{ref[valueName]}</option>
                             })}
                         </select>
                     })}
+                    <button onClick={addSelect}>Добавити Select</button>
                 </label>
             case 'array': 
                 return <label>
                     {placeholder}
-                    {valueState && valueState.map(v => {
+                    {valueState && valueState.map((v, index) => {
                         return <input
                             type="text"
                             name={idName}
                             placeholder={placeholder}
                             disabled={isIgnore}
-                            value={v}
-                            onChange={(e) => {setValue(e.target.value)}}
+                            value={v.value}
+                            onChange={changeHandler}
+                            index={index}
                         />
                     })}
+                    <button onClick={addSelect}>Добавити поле</button>
                 </label>
         }
     }

@@ -1,4 +1,5 @@
 .newsListPage {
+
     & li {
         display: flex;
         flex-direction: row;
@@ -9,14 +10,21 @@
         flex-direction: row;
         color: #000000;
     }
+
+    & li .newsDate {
+        font-size: 14px;
+    }
+
     & li a p:first-child {
         display: flex;
         flex-direction: row;
         color: #2a6f4c;
     }
+
     & li:last-child {
         margin-bottom: 0;
     }
+
     & li p:first-child {
         margin-right: 10px;
     }

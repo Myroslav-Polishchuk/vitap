@@ -16,7 +16,7 @@
     }
 
     & .active {
-        background-color: green;
+        background-color: #00a652;
     }
 
     & .active a {
@@ -29,5 +29,23 @@
 
     & .unactive a {
         color: green;
+    }
+}
+
+.articlesList {
+    & .active {
+        background-color: #00a652;
+    }
+}
+
+.videoList {
+    & .active {
+        background-color: #a60055;
+    }
+}
+
+.recomendationListCat {
+    & .active {
+        background-color: #00a652;
     }
 }

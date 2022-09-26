@@ -5,7 +5,9 @@ import Component from '../../../components/AuthorsArticlesListComp/AuthorsArticl
 import {authorsAxios} from '../../../components/axios'
 import getI18Text from './../../../components/utils/i18n';
 
-const limitPerPage = 2;
+import utils from '../../../components/utils/utils';
+
+const limitPerPage = 30;
 
 function AuthorsArticlesListPage(props) {
     const [articles, setArticles] = useState([]);
@@ -62,9 +64,10 @@ function AuthorsArticlesListPage(props) {
     }, [articlesLength, props.match.params.authorsID, activePagination]);
 
     const {BreadcrumbsData, titleText} = useMemo(() => {
-        if (author && author.name && props.languageID) {
+        if (author && author.firstName && props.languageID) {
+            const name = utils.createAuthorInitials(author);
             const authorsText = getI18Text('authorsMainTitle', props.languageID);
-    
+
             return {
                 BreadcrumbsData: [
                     {
@@ -72,11 +75,11 @@ function AuthorsArticlesListPage(props) {
                         url: "/authors"
                     },
                     {
-                        text: author.name,
+                        text: name,
                         url: ""
                     },
                 ],
-                titleText: `${getI18Text('justAuthor', props.languageID)}: ${author.name}`,
+                titleText: `${getI18Text('justAuthor', props.languageID)}: ${name}`,
             }
         } else {
             return {
@@ -90,6 +93,7 @@ function AuthorsArticlesListPage(props) {
         BreadcrumbsData={BreadcrumbsData}
         titleText={titleText}
         articleListData={articles}
+        languageID={props.languageID}
         paginationProps={{
             activePagination: activePagination,
             dataLength: articlesLength,

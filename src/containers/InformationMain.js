@@ -19,41 +19,37 @@ function InformationMain(props) {
 	}, [props.languageID]);
 
 	useEffect(() => {
-		mainAxios
-		.get('/external')
-		.then(response => {
-            if (response.status === 200) {
-                setMagazinesData(response.data);
-            } else {
-                throw new Error('Recomendation Error');
-            }
-        })
-        .catch(err => {
-            console.log(err);
-		})
-
-		newsAxios
-		.get('/main')
-		.then(response => {
-			if (response.status === 200) {
-				setMainNews(response.data);
-			} else {
-				throw new Error('Recomendation Error');
-			}
-		})
-	}, [])
-
-	useEffect(() => {
-		if (mainNews._id) {
-			newsAxios
-			.get(`/preview/${mainNews._id}`)
+		mainAxios.get('/external')
 			.then(response => {
 				if (response.status === 200) {
-					setNewsPreview(response.data);
+					setMagazinesData(response.data);
+				} else {
+					throw new Error('Recomendation Error');
+				}
+			}).catch(err => {
+				console.log(err);
+			})
+
+		newsAxios.get('/main')
+			.then(response => {
+				if (response.status === 200) {
+					setMainNews(response.data);
 				} else {
 					throw new Error('Recomendation Error');
 				}
 			})
+	}, [])
+
+	useEffect(() => {
+		if (mainNews.id) {
+			newsAxios.get(`/preview/${mainNews.id}`)
+				.then(response => {
+					if (response.status === 200) {
+						setNewsPreview(response.data);
+					} else {
+						throw new Error('Recomendation Error');
+					}
+				})
 		}
 	}, [mainNews])
 
@@ -62,6 +58,8 @@ function InformationMain(props) {
 		magazinesData={magazinesData}
 		titles={titles}
 		mainNews={mainNews}
+		advertisingID={props.advertisingID}
+		languageID={props.languageID}
 	/>
 }
 
